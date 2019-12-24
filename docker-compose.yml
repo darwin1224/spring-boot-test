@@ -1,0 +1,30 @@
+version: '3'
+
+services: 
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment: 
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=rahasia
+      - MYSQL_DATABASE=java_test
+    volumes: 
+      - database:/var/lib/mysql
+    ports: 
+      - 3306:3306
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports: 
+      - 80:80
+    environment: 
+      - PMA_HOST=database
+      - PMA_PORT=3306
+    depends_on: 
+      - database
+    restart: always
+
+volumes: 
+  database:
